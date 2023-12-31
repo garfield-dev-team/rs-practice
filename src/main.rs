@@ -27,8 +27,9 @@ fn main() {
         // 类似 Go 语言中的 runtime.Gosched()
         thread::yield_now();
 
-        // 在 Rust 中可以用 catch_unwind 捕获和处理 panic
-        // 类似 try catch 用法
+        // 在 Rust 可以使用 catch_unwind 实现类似 try/catch 捕获 panic 的功能
+        // 如果 panic 没有被捕获，那么线程就会退出，通过 JoinHandle 可以检查这个错误
+        // 如果被捕获，外部的 handle 是检查不到这个 panic 的
         let result = catch_unwind(|| {
             println!("执行前");
             panic!("发生 Panic");
